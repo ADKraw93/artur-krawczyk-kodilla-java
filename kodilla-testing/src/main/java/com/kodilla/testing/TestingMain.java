@@ -6,18 +6,6 @@ import com.kodilla.testing.user.SimpleUser;
 public class TestingMain {
 
     public static void main(String[] args) {
-        // SimpleUser testing
-        SimpleUser simpleUser = new SimpleUser("theForumUser");
-
-        String result = simpleUser.getUsername();
-
-        System.out.println("SimpleUser testing:");
-
-        if (result.equals("theForumUser")) {
-            System.out.println("test OK");
-        } else {
-            System.out.println("Error!");
-        }
 
         // Calculator testing
         Calculator calculator = new Calculator();
