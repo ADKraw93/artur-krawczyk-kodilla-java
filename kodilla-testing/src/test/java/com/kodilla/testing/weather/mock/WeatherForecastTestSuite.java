@@ -51,10 +51,10 @@ class WeatherForecastTestSuite {
 
         //When
         Double result = weatherForecast.calculateMean();
-        Double expectedResult = 25.56; // (25.5+26.2+24.8+25.2+26.1)/5
+        Double expectedResult = (25.5+26.2+24.8+25.2+26.1)/5; //
 
         //Then
-        Assertions.assertEquals(expectedResult, result);
+        Assertions.assertEquals(expectedResult, result, 0.001);
     }
 
     @Test
@@ -74,8 +74,8 @@ class WeatherForecastTestSuite {
     void testCalculateMedianEvenLengthWithMock() {
         //Given
         Map<String, Double> temperaturesMap = new HashMap<>();
-        temperaturesMap.put("Rzeszow", 1.0);
         temperaturesMap.put("Krakow", 3.5);
+        temperaturesMap.put("Rzeszow", 1.0);
         temperaturesMap.put("Wroclaw", 2.5);
         temperaturesMap.put("Warszawa", 5.4);
         when(temperaturesMock.getTemperatures()).thenReturn(temperaturesMap);
