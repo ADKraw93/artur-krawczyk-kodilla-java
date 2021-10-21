@@ -1,34 +1,26 @@
 package com.kodilla.stream;
 
-import com.kodilla.stream.beautifier.PoemBeautifier;
-import com.kodilla.stream.iterate.NumbersGenerator;
-import com.kodilla.stream.lambda.ExpressionExecutor;
-import com.kodilla.stream.reference.FunctionalCalculator;
+import com.kodilla.stream.forumuser.Forum;
+import com.kodilla.stream.forumuser.ForumUser;
+
+import java.time.LocalDate;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class StreamMain {
 
     public static void main(String[] args) {
-        ExpressionExecutor expressionExecutor = new ExpressionExecutor();
 
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a + b);
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a - b);
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a * b);
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a / b);
+        Forum theForum = new Forum();
 
-        System.out.println("Calculating expressions with method references");
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::multiplyAByB);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::addAToB);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::subBFromA);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::divideAByB);
+        Map<Integer, ForumUser> mapOfUsers = theForum.getUserList().stream()
+                .filter(user -> user.getSex()=='M')
+                .filter(user -> user.getDateOfBirth().isBefore(LocalDate.of(2001, 10, 21))) //nie wiem jak po prostu odjąć 20 lat od obecnej daty
+                .filter(user -> user.getNumberOfPosts() >= 1)
+                .collect(Collectors.toMap(ForumUser::getUserId, user -> user));
 
-        //Task 7.1 Solution
-        PoemBeautifier beautifier = new PoemBeautifier();
-        beautifier.beautify("Sample text", (text) -> "ABC" + text);
-        beautifier.beautify("Sample text", (text) -> text.toUpperCase());
-        beautifier.beautify("Sample text", (text) -> text.substring(0,6));
-        beautifier.beautify("Sample text", (text) -> text.substring(0,6) + text.toUpperCase() + text.substring(7,11));
-
-        System.out.println("Using Stream to generate even numbers from 1 to 20");
-        NumbersGenerator.generateEven(20);
+        mapOfUsers.entrySet().stream()
+                .map(entry -> entry.getKey() + ": " + entry.getValue())
+                .forEach(System.out::println);
     }
 }
