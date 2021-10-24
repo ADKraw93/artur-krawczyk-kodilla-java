@@ -4,6 +4,7 @@ import com.kodilla.stream.forumuser.Forum;
 import com.kodilla.stream.forumuser.ForumUser;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -15,7 +16,7 @@ public class StreamMain {
 
         Map<Integer, ForumUser> mapOfUsers = theForum.getUserList().stream()
                 .filter(user -> user.getSex()=='M')
-                .filter(user -> user.getDateOfBirth().isBefore(LocalDate.of(2001, 10, 21))) //nie wiem jak po prostu odjąć 20 lat od obecnej daty
+                .filter(user -> Period.between(user.getDateOfBirth(), LocalDate.now()).getYears() >= 20)
                 .filter(user -> user.getNumberOfPosts() >= 1)
                 .collect(Collectors.toMap(ForumUser::getUserId, user -> user));
 
