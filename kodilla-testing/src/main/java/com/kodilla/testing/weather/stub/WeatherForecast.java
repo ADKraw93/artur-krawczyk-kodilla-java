@@ -58,7 +58,7 @@ public class WeatherForecast {
                 }
             }*/
         }
-        Object[] sortedArray = sortedList.toArray();
+        Object[] sortedArray =  sortedList.toArray();
         Arrays.sort(sortedArray);
         // now I take the element from sorted list
         position = (sortedArray.length-1)/2;
