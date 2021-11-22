@@ -1,32 +1,13 @@
 package com.kodilla.rps;
 
-public class Player implements PlayersInterface{
+public interface Player {
+    String getName();
 
-    Input playersInput = new Input();
-    private int numberOfPoints;
+    void addPoint();
 
-    public Player(){
-        numberOfPoints = 0;
-    }
+     int getPoints();
 
-    @Override
-    public void addPoint(){
-        numberOfPoints++;
-    }
+     void setPoints(int points);
 
-    @Override
-    public void setPoints(int points) {
-        numberOfPoints = points;
-    }
-
-    @Override
-    public int getPoints() {
-        return numberOfPoints;
-    }
-
-    @Override
-    public String gamersMove() {
-        playersInput.move();
-        return playersInput.getLastMove();
-    }
+     String gamersMove();
 }

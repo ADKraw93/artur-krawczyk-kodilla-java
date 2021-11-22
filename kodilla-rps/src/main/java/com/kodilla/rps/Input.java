@@ -4,36 +4,24 @@ import java.util.Scanner;
 
 public class Input {
 
-    Scanner sc = new Scanner(System.in);
-    public String name;
-    public int numberOfWins;
-    public String lastMove;
+    private static final Scanner sc = new Scanner(System.in);
 
-    public void nameInput() {
+    public static String nameInput() {
         System.out.println("Podaj swoje imię.");
-        name = sc.next();
+        var name = sc.next();
         System.out.println("Witaj " + name + "!");
-    }
-
-    public void numberOfWinsInput() {
-        System.out.println("Podaj do ilu zwycięstw chcesz grać?");
-        numberOfWins = sc.nextInt();
-        System.out.println("Ok, zatem gramy do " + numberOfWins + " zwycięstw.");
-    }
-
-    public void move() {
-        lastMove = sc.next();
-    }
-
-    public String getName() {
         return name;
     }
 
-    public int getNumberOfWins() {
+    public static int numberOfWinsInput() {
+        System.out.println("Podaj do ilu zwycięstw chcesz grać?");
+        var numberOfWins = sc.nextInt();
+        System.out.println("Ok, zatem gramy do " + numberOfWins + " zwycięstw.");
         return numberOfWins;
     }
 
-    public String getLastMove() {
-        return lastMove;
+    public static String move() {
+        return sc.next();
     }
+
 }

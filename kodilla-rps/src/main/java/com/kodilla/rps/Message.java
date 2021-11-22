@@ -2,147 +2,147 @@ package com.kodilla.rps;
 
 public class Message {
 
-    private final String rulesIntroMessage = "Grę w papier, kamień, nożyce obsługuje się wciskając następujące przyciski:";
-    private final String push_1Message = "klawisz 1 - zagranie \"kamień\"";
-    private final String push_2Message = "klawisz 2 - zagranie \"papier\"";
-    private final String push_3Message = "klawisz 3 - zagranie \"nożyce\"";
-    private final String push_xMessage = "klawisz x - zakończenie gry";
-    private final String push_nMessage = "klawisz n - uruchomienie gry od nowa";
-    private final String chooseMessage = "Zaczynamy! Wybierz zagranie.";
-    private final String fullRulesMessage = rulesIntroMessage + "\n" +
+    private static final String rulesIntroMessage = "Grę w papier, kamień, nożyce obsługuje się wciskając następujące przyciski:";
+    private static final String push_1Message = "klawisz 1 - zagranie \"kamień\"";
+    private static final String push_2Message = "klawisz 2 - zagranie \"papier\"";
+    private static final String push_3Message = "klawisz 3 - zagranie \"nożyce\"";
+    private static final String push_xMessage = "klawisz x - zakończenie gry";
+    private static final String push_nMessage = "klawisz n - uruchomienie gry od nowa";
+    private static final String chooseMessage = "Zaczynamy! Wybierz zagranie.";
+    private static final String fullRulesMessage = rulesIntroMessage + "\n" +
             push_1Message + "\n" +
             push_2Message + "\n" +
             push_3Message + "\n" +
             push_xMessage + "\n" +
             push_nMessage;
-    private final String wrongButtonMessage = "Nieprawidłowy klawisz\n";
-    private final String sureToExitMessage = "Czy na pewno zakończyć grę? T/N";
-    private final String goOnMessage = "Ok, gramy dalej. Wybierz inny klawisz.";
-    private final String newGameMessage = "Rozpoczynamy nową rozgrywkę. Wciśnij odpowiedni klawisz zagrywki.";
-    private final String decideWhatToDoMessage = "Jeśli chcesz grać od nowa wciśnij \"n\", a jeśli chcesz zakończyć grę to wciśnij \"x\"\n";
+    private static final String wrongButtonMessage = "Nieprawidłowy klawisz\n";
+    private static final String sureToExitMessage = "Czy na pewno zakończyć grę? T/N";
+    private static final String goOnMessage = "Ok, gramy dalej. Wybierz inny klawisz.";
+    private static final String newGameMessage = "Rozpoczynamy nową rozgrywkę. Wciśnij odpowiedni klawisz zagrywki.";
+    private static final String decideWhatToDoMessage = "Jeśli chcesz grać od nowa wciśnij \"n\", a jeśli chcesz zakończyć grę to wciśnij \"x\"\n";
 
     //gettery
-    public String getRulesIntroMessage() {
+    public static String getRulesIntroMessage() {
         return rulesIntroMessage;
     }
 
-    public String getPush_1Message() {
+    public static String getPush_1Message() {
         return push_1Message;
     }
 
-    public String getPush_2Message() {
+    public static String getPush_2Message() {
         return push_2Message;
     }
 
-    public String getPush_3Message() {
+    public static String getPush_3Message() {
         return push_3Message;
     }
 
-    public String getPush_xMessage() {
+    public static String getPush_xMessage() {
         return push_xMessage;
     }
 
-    public String getPush_nMessage() {
+    public static String getPush_nMessage() {
         return push_nMessage;
     }
 
-    public String getChooseMessage() {
+    public static String getChooseMessage() {
         return chooseMessage;
     }
 
-    public String getFullRulesMessage() {
+    public static String getFullRulesMessage() {
         return fullRulesMessage;
     }
 
-    public String getWrongButtonMessage() {
+    public static String getWrongButtonMessage() {
         return wrongButtonMessage;
     }
 
-    public String getSureToExitMessage() {
+    public static String getSureToExitMessage() {
         return sureToExitMessage;
     }
 
-    public String getGoOnMessage() {
+    public static String getGoOnMessage() {
         return goOnMessage;
     }
 
-    public String getNewGameMessage() {
+    public static String getNewGameMessage() {
         return newGameMessage;
     }
 
-    public String getDecideWhatToDoMessage() {
+    public static String getDecideWhatToDoMessage() {
         return decideWhatToDoMessage;
     }
 
     //printy
-    public void printRulesIntroMessage() {
+    public static void printRulesIntroMessage() {
         System.out.println(rulesIntroMessage);
     }
 
-    public void printPush_1Message() {
+    public static void printPush_1Message() {
         System.out.println(push_1Message);
     }
 
-    public void printPush_2Message() {
+    public static void printPush_2Message() {
         System.out.println(push_2Message);
     }
 
-    public void printPush_3Message() {
+    public static void printPush_3Message() {
         System.out.println(push_3Message);
     }
 
-    public void printPush_xMessage() {
+    public static void printPush_xMessage() {
         System.out.println(push_xMessage);
     }
 
-    public void printPush_nMessage() {
+    public static void printPush_nMessage() {
         System.out.println(push_nMessage);
     }
 
-    public void printChooseMessage() {
+    public static void printChooseMessage() {
         System.out.println(chooseMessage);
     }
 
-    public void printFullRulesMessage() {
+    public static void printFullRulesMessage() {
         System.out.println(fullRulesMessage);
     }
 
-    public void printWrongButtonMessage() {
+    public static void printWrongButtonMessage() {
         System.out.println(wrongButtonMessage);
     }
 
-    public void printSureToExitMessage() {
+    public static void printSureToExitMessage() {
         System.out.println(sureToExitMessage);
     }
 
-    public void printGoOnMessage() {
+    public static void printGoOnMessage() {
         System.out.println(goOnMessage);
     }
 
-    public void printNewGameMessage() {
+    public static void printNewGameMessage() {
         System.out.println(newGameMessage);
     }
 
-    public void printDecideWhatToDoMessage() {
+    public static void printDecideWhatToDoMessage() {
         System.out.println(decideWhatToDoMessage);
     }
 
     //personalised messeges
-    public void printNiceToMeetMessage(String name) {
+    public static void printNiceToMeetMessage(String name) {
         System.out.println("Miło było z Tobą pograć " + name + ". Do zobaczenia kolejnym razem!");
     }
 
-    public void printResults(String name, int numberOfPlayersWins, int numberOfComputersWins) {
+    public static void printResults(Player player1, Player player2) {
         System.out.println("Aktualne wyniki:\n" +
-                name + ": " + numberOfPlayersWins + "\n" +
-                "Komputer: " + numberOfComputersWins + "\n");
+                player1.getName() + ": " + player1.getPoints() + "\n" +
+                player2.getName() + ": " + player2.getPoints() + "\n");
     }
 
-    public void printWinMessage(String name){
-        System.out.println("Gratuluję " + name + "! Wygrałeś/aś!");
+    public static void printWinMessage(String name){
+        System.out.println("To koniec rozgrywki. Pojedynek wygrał: " + name);
     }
 
-    public void printLooseMessage(String name) {
+    public static void printLooseMessage(String name) {
         System.out.println("Niestety " + name + " przegrałeś/aś, ale głowa do góry! Kolejnym razem się uda!");
     }
 }

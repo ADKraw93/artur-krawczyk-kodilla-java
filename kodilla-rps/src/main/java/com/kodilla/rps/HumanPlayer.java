@@ -1,12 +1,13 @@
 package com.kodilla.rps;
 
-import java.util.Random;
+public class HumanPlayer implements Player{
 
-public class Computer implements Player {
-
-    private static final Random moveGenerator = new Random();
-    private static final String name = "Komputer";
     private int numberOfPoints = 0;
+    private String name;
+
+    public HumanPlayer(String name) {
+        this.name = name;
+    }
 
     @Override
     public String getName() {
@@ -30,6 +31,6 @@ public class Computer implements Player {
 
     @Override
     public String gamersMove() {
-        return String.valueOf(moveGenerator.nextInt(3) + 1);
+        return Input.move();
     }
 }

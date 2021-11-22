@@ -1,95 +1,173 @@
 package com.kodilla.rps;
 
+import java.util.List;
+
+import static com.kodilla.rps.Message.*;
 import static java.lang.Integer.parseInt;
 
 public class GameProcessor {
 
-    Message message = new Message();
-    Input gameInput = new Input();
-    PlayersInterface computer = new Computer();
-    PlayersInterface player = new Player();
-    GameRules rules = new RPSRulesEasy();
+    private final Player player1;
+    private final Player player2;
+    private final GameRules rules;
+    private final int numberOfWins;
 
-    public void playAGame(String name, int numberOfTurns){
+    public GameProcessor(Player player1, Player player2, GameRules rules, int numberOfWins) {
+        this.player1 = player1;
+        this.player2 = player2;
+        this.rules = rules;
+        this.numberOfWins = numberOfWins;
+    }
 
-        System.out.println("");
-        message.printFullRulesMessage();
-        message.printChooseMessage();
+    public void playAGame(){
+        
+        printFullRulesMessage();
+        printChooseMessage();
+        var skipPlayer1 = false;
+        var skipPlayer2 = false;
+        String player1Move = "";
+        String player2Move = "";
 
-        while(true){
-            gameInput.move();
+       while(true){
+           //sprawdzamy, czy dany ruch każdego z graczy jest dozwolony
+           if(!skipPlayer1){
+               do {
+                   player1Move = player1.gamersMove();
+                   skipPlayer2 = false;
+               } while (!checkPlayerMove(player1Move));
 
-            if(!"x".equals(gameInput.getLastMove()) && !"n".equals(gameInput.getLastMove())  && !"1".equals(gameInput.getLastMove()) && !"2".equals(gameInput.getLastMove()) && !"3".equals(gameInput.getLastMove())) {
-                message.printWrongButtonMessage();
-                message.printFullRulesMessage();
+               //procedury ponownej rozgrywki gracza 1
+               if("n".equals(player1Move)) {
+                   if (player1.getPoints() < numberOfWins && player2.getPoints() < numberOfWins) {
+                       printSureToExitMessage();
+                       player1Move = player1.gamersMove();
+                       if ("T".equals(player1Move)) {
+                           player2.setPoints(0);
+                           player1.setPoints(0);
+                           printNewGameMessage();
+                       } else {
+                           printGoOnMessage();
+                           skipPlayer2 = true;
+                       }
+                   } else {
+                       player1.setPoints(0);
+                       player2.setPoints(0);
+                       printNewGameMessage();
+                   }
+               }
+
+               //procedury wyjścia z gry gracza 1
+               if("x".equals(player1Move)) {
+                   if(player1.getPoints() < numberOfWins && player2.getPoints() < numberOfWins){
+                       printSureToExitMessage();
+                       player1Move = player1.gamersMove();
+                       if("T".equals(player1Move)) {
+                           printNiceToMeetMessage(player1.getName());
+                           break;
+                       } else {
+                           printGoOnMessage();
+                           skipPlayer1 = true;
+                       }
+                   } else {
+                       printNiceToMeetMessage(player1.getName());
+                       break;
+                   }
+               }
+           }
+
+           if(!skipPlayer2){
+               do {
+                   player2Move = player2.gamersMove();
+                   skipPlayer1 = false;
+               } while (!checkPlayerMove(player2Move));
+
+               //procedury ponownej rozgrywki gracza 2
+               if("n".equals(player2Move)){
+                   if(player1.getPoints() < numberOfWins && player2.getPoints() < numberOfWins){
+                       printSureToExitMessage();
+                       player2Move = player2.gamersMove();
+                       if("T".equals(player2Move)){
+                           player2.setPoints(0);
+                           player1.setPoints(0);
+                           printNewGameMessage();
+                       } else {
+                           printGoOnMessage();
+                           skipPlayer1 = true;
+                       }
+                   } else {
+                       player1.setPoints(0);
+                       player2.setPoints(0);
+                       printNewGameMessage();
+                   }
+               }
+
+               //procedury wyjścia z gry gracza 2
+               if("x".equals(player2Move)) {
+                   if(player1.getPoints() < numberOfWins && player2.getPoints() < numberOfWins){
+                       printSureToExitMessage();
+                       player2Move = player2.gamersMove();
+                       if("T".equals(player2Move)) {
+                           printNiceToMeetMessage(player2.getName());
+                           break;
+                       } else {
+                           printGoOnMessage();
+                           skipPlayer1 = true;
+                       }
+                   } else {
+                       printNiceToMeetMessage(player2.getName());
+                       break;
+                   }
+               }
+           }
+
+           //sprawdzanie wyniku rozgrywki
+            if(checkPlaysAllowed(player1Move) && checkPlaysAllowed(player2Move) && player2.getPoints() < numberOfWins && player1.getPoints() < numberOfWins){
+                int turnResult = playATurn(player1Move, player2Move);
+                if(turnResult == 1) player1.addPoint();
+                if(turnResult == -1 ) player2.addPoint();
+                printResults(player1, player2);
             }
 
-            if("x".equals(gameInput.getLastMove())) {
-                if(player.getPoints() < numberOfTurns && computer.getPoints() < numberOfTurns){
-
-                    message.printSureToExitMessage();
-                    gameInput.move();
-
-                    if("T".equals(gameInput.getLastMove())) {
-                        message.printNiceToMeetMessage(name);
-                        break;
-                    } else {
-                        message.printGoOnMessage();
-                    }
-
+            //sprawdzamy ogłoszenie wyników
+            if((player2.getPoints() >= numberOfWins || player1.getPoints() >= numberOfWins) && checkPlaysAllowed(player1Move) && checkPlaysAllowed(player2Move)){
+                if(player2.getPoints() > player1.getPoints()) {
+                    printWinMessage(player2.getName());
                 } else {
-                    message.printNiceToMeetMessage(name);
+                    printWinMessage(player1.getName());
+                }
+                if(!(player1 instanceof Computer) && !(player2 instanceof Computer)){ //zabezpieczenie jakbym puścił grę dwóch komputerów, żeby pętla się przerwała bo żaden nie kliknie x
+                    printDecideWhatToDoMessage();
+                } else {
                     break;
                 }
-            }
-
-            if(("1".equals(gameInput.getLastMove()) || "2".equals(gameInput.getLastMove()) || "3".equals(gameInput.getLastMove())) && player.getPoints() < numberOfTurns && computer.getPoints() < numberOfTurns){
-                int turnResult = playATurn(gameInput.getLastMove(), computer.gamersMove());
-
-                if(turnResult == -1) computer.addPoint();
-                if(turnResult == 1 ) player.addPoint();
-                message.printResults(name, player.getPoints(), computer.getPoints());
-            }
-
-            if("n".equals(gameInput.getLastMove())){
-                if(player.getPoints() < numberOfTurns && computer.getPoints() < numberOfTurns){
-                    message.printSureToExitMessage();
-                    gameInput.move();
-                    if("T".equals(gameInput.getLastMove())){
-                        player.setPoints(0);
-                        computer.setPoints(0);
-                        message.printNewGameMessage();
-                    } else {
-                        message.printGoOnMessage();
-                    }
-                } else {
-                    player.setPoints(0);
-                    computer.setPoints(0);
-                    message.printNewGameMessage();
-                }
-            }
-
-            if((player.getPoints() >= numberOfTurns || computer.getPoints() >= numberOfTurns) && ("1".equals(gameInput.getLastMove()) || "2".equals(gameInput.getLastMove()) || "3".equals(gameInput.getLastMove()))){
-                if(player.getPoints() > computer.getPoints()) {
-                    message.printWinMessage(name);
-                } else {
-                    message.printLooseMessage(name);
-                }
-                message.printDecideWhatToDoMessage();
             }
         }
     }
 
-    public int playATurn (String playersMove, String computersMove){
+    public int playATurn (String player1Move, String player2Move){
         int turnResult;
-
-        turnResult = rules.check(parseInt(playersMove)-1, parseInt(computersMove)-1);
-
-            System.out.println("Zagrałeś/aś: " + decodeMoves(playersMove) +
-                    ", komputer zagrał: " + decodeMoves(computersMove) +
+        turnResult = rules.check(parseInt(player1Move)-1, parseInt(player2Move)-1);
+            System.out.println(player1.getName() + " zagrał/a: " + decodeMoves(player1Move) +
+                    ", " + player2.getName() + " zagrał: " + decodeMoves(player2Move) +
                     ", " + decodeTurnResult(turnResult));
 
         return turnResult;
+    }
+
+    private boolean checkPlayerMove(String move) {
+        if(!rules.getAvailableMoves().contains(move)) {
+            printWrongButtonMessage();
+            printFullRulesMessage();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkPlaysAllowed(String move) {
+        if(!rules.getPlaysAllowed().contains(move)) {
+            return false;
+        }
+        return true;
     }
 
     // metody pomocnicze
@@ -106,9 +184,9 @@ public class GameProcessor {
     private String decodeTurnResult (int turnResultCode){
         String decodeResult = "błąd";
 
-        if (turnResultCode == -1) decodeResult = "punkt dla komputera";
+        if (turnResultCode == -1) decodeResult = "punkt dla " + player2.getName();
         if (turnResultCode == 0 ) decodeResult = "remis, nikt nie otrzymuje punktu";
-        if (turnResultCode == 1) decodeResult = "punkt dla Ciebie";
+        if (turnResultCode == 1) decodeResult = "punkt dla " + player1.getName();
 
         return decodeResult;
     }
