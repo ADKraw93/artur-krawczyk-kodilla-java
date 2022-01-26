@@ -135,6 +135,7 @@ public class GameProcessor {
                 } else {
                     printWinMessage(player1.getName());
                 }
+
                 if(!(player1 instanceof Computer) && !(player2 instanceof Computer)){ //zabezpieczenie jakbym puścił grę dwóch komputerów, żeby pętla się przerwała bo żaden nie kliknie x
                     printDecideWhatToDoMessage();
                 } else {
