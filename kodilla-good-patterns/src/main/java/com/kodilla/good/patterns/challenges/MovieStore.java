@@ -28,9 +28,10 @@ public class MovieStore {
 
     public void getTitles(){
 
-        String listOfTitles = getMovies().entrySet().stream().
-                map(entry -> entry.getValue().stream().toString()).
-                collect(Collectors.joining("!", "", ""));
+        String listOfTitles = getMovies().entrySet()
+                .stream()
+        .flatMap(entry -> entry.getValue().stream())
+        .collect(Collectors.joining("!"));
 
         System.out.println(listOfTitles);
     }
