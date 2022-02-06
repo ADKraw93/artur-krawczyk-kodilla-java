@@ -22,7 +22,7 @@ public class BoardTestSuite {
         assertTrue(boardExists);
     }
 
-    @Test
+    /*@Test
     void testToDoList(){
         //Given
         ApplicationContext context = new AnnotationConfigApplicationContext(BoardConfig.class);
@@ -47,6 +47,16 @@ public class BoardTestSuite {
         //Given
         ApplicationContext context = new AnnotationConfigApplicationContext(BoardConfig.class);
         boolean doneListExists = context.containsBean("doneList");
+
+        //When & Then
+        assertTrue(doneListExists);
+    }*/
+
+    @Test
+    void testTheList(){
+        //Given
+        ApplicationContext context = new AnnotationConfigApplicationContext(BoardConfig.class);
+        boolean doneListExists = context.containsBean("theList");
 
         //When & Then
         assertTrue(doneListExists);
