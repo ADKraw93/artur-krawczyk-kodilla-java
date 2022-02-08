@@ -4,19 +4,17 @@ public class ProductOrderService {
 
     //private OrderRequest orderRequest;
     private InformationService informationService;
-    private TransportService transportService;
+    //private TransportMethod transportMethod;
     private OrderRepository orderRepository;
 
-    public ProductOrderService(final TransportService transportService,
-                               final InformationService informationService,
+    public ProductOrderService(final InformationService informationService,
                                final OrderRepository orderRepository) {
-        this.transportService = transportService;
         this.informationService = informationService;
         this.orderRepository = orderRepository;
     }
 
-    public void processOrder(String recipientAdress, String senderAdress) {
-        transportService.process(recipientAdress, senderAdress);
+    public void processOrder(Order order) {
+        order.getTransportMethod().process(order.getBuyer().getUserAdress(), order.getSeller().getUserAdress());
         informationService.process();
         orderRepository.saveToDatabase();
     }

@@ -1,16 +1,16 @@
 package com.kodilla.good.patterns.challenges;
 
 public class Order {
-    User buyer;
-    User seller;
-    Product product;
-    TransportService transportService;
+    private User buyer;
+    private User seller;
+    private Product product;
+    private TransportMethod transportMethod;
 
-    public Order(User buyer, User seller, Product product, TransportService transportService) {
+    public Order(User buyer, User seller, Product product, TransportMethod transportMethod) {
         this.buyer = buyer;
         this.seller = seller;
         this.product = product;
-        this.transportService = transportService;
+        this.transportMethod = transportMethod;
     }
 
     public User getBuyer() {
@@ -25,7 +25,7 @@ public class Order {
         return product;
     }
 
-    public TransportService getTransportService() {
-        return transportService;
+    public TransportMethod getTransportMethod() {
+        return transportMethod;
     }
 }

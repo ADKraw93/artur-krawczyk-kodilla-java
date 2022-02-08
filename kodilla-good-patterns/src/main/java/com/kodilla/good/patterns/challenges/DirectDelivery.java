@@ -1,6 +1,6 @@
 package com.kodilla.good.patterns.challenges;
 
-public class DirectDelivery implements TransportService{
+public class DirectDelivery implements TransportMethod {
      String transportMethod;
 
      public DirectDelivery() {
