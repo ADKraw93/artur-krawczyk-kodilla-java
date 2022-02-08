@@ -12,6 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
 public class BoardTestSuite {
 
+    @Autowired
+    Board board;
+
     @Test
     void testBoard(){
         //Given
@@ -22,35 +25,6 @@ public class BoardTestSuite {
         assertTrue(boardExists);
     }
 
-    /*@Test
-    void testToDoList(){
-        //Given
-        ApplicationContext context = new AnnotationConfigApplicationContext(BoardConfig.class);
-        boolean toDoListExists = context.containsBean("toDoList");
-
-        //When & Then
-        assertTrue(toDoListExists);
-    }
-
-    @Test
-    void testInProgressList(){
-        //Given
-        ApplicationContext context = new AnnotationConfigApplicationContext(BoardConfig.class);
-        boolean inProgressListExists = context.containsBean("inProgressList");
-
-        //When & Then
-        assertTrue(inProgressListExists);
-    }
-
-    @Test
-    void testDoneList(){
-        //Given
-        ApplicationContext context = new AnnotationConfigApplicationContext(BoardConfig.class);
-        boolean doneListExists = context.containsBean("doneList");
-
-        //When & Then
-        assertTrue(doneListExists);
-    }*/
 
     @Test
     void testTheList(){
@@ -62,8 +36,7 @@ public class BoardTestSuite {
         assertTrue(doneListExists);
     }
 
-    @Autowired
-    Board board;
+
 
     @Test
     void testTaskAdd(){

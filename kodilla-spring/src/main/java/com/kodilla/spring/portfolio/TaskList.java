@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskList {
-    List<String> tasks;
+    private List<String> tasks;
 
     public TaskList() {
         tasks = new ArrayList<>();
@@ -16,5 +16,9 @@ public class TaskList {
 
     public String readTasks(){
         return tasks.toString();
+    }
+
+    public List<String> getTasks() {
+        return tasks;
     }
 }
