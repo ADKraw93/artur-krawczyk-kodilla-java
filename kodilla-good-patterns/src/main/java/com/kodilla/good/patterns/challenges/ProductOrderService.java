@@ -2,9 +2,7 @@ package com.kodilla.good.patterns.challenges;
 
 public class ProductOrderService {
 
-    //private OrderRequest orderRequest;
     private InformationService informationService;
-    //private TransportMethod transportMethod;
     private OrderRepository orderRepository;
 
     public ProductOrderService(final InformationService informationService,
