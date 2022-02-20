@@ -1,0 +1,11 @@
+/* Zadanie z modułu 16.5 */
+
+INSERT INTO POSTS (USER_ID, BODY)
+VALUES (3, "Hello everybody! I'm Stephanie!");
+
+UPDATE posts
+SET BODY = "To delete"
+WHERE ID = 7;
+
+DELETE FROM posts
+WHERE ID = 7;
