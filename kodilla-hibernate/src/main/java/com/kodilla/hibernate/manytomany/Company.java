@@ -5,6 +5,10 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedNativeQuery(
+        name = "Company.retrieveCompanyByFirstLetters",
+        query = "SELECT * FROM COMPANIES WHERE COMPANY_NAME LIKE CONCAT(:LETTERS, '%')"
+)
 @Entity
 @Table(name = "COMPANIES")
 public class Company {

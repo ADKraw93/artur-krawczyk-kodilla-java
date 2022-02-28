@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -13,6 +15,9 @@ class CompanyDaoTestSuite {
 
     @Autowired
     private CompanyDao companyDao;
+
+    @Autowired
+    private EmploeeDao emploeeDao;
 
     @Test
     void testSaveManyToMany() {
@@ -58,5 +63,40 @@ class CompanyDaoTestSuite {
         } catch (Exception e) {
             //do nothing
         }
+    }
+
+    @Test
+    void testNewQueries() {
+        //Given
+        Employee johnSmith = new Employee("John", "Smith");
+        Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
+        Employee lindaSmith = new Employee("Linda", "Smith");
+
+        Company testCompany = new Company("Test Company");
+
+        testCompany.getEmployees().add(johnSmith);
+        testCompany.getEmployees().add(stephanieClarckson);
+        testCompany.getEmployees().add(lindaSmith);
+
+        johnSmith.getCompanies().add(testCompany);
+        stephanieClarckson.getCompanies().add(testCompany);
+        lindaSmith.getCompanies().add(testCompany);
+
+        //When
+        companyDao.save(testCompany);
+
+        //List<Company> listOfCompanies = companyDao.retrieveCompanyByFirstLetters("Tes");
+        List<Employee> listOfEmployees = emploeeDao.retrieveEmployeesByLastName("Smith");
+
+        //Then
+        try {
+            //assertEquals(1, listOfCompanies.size());
+            assertEquals(2, listOfEmployees.size());
+        } finally {
+            //CleanUp
+            companyDao.deleteAll();
+            emploeeDao.deleteAll();
+        }
+
     }
 }
