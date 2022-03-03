@@ -85,12 +85,12 @@ class CompanyDaoTestSuite {
         //When
         companyDao.save(testCompany);
 
-        //List<Company> listOfCompanies = companyDao.retrieveCompanyByFirstLetters("Tes");
         List<Employee> listOfEmployees = emploeeDao.retrieveEmployeesByLastName("Smith");
+        List<Company> listOfCompanies = companyDao.retrieveCompanyByFirstLetters("Tes");
 
         //Then
         try {
-            //assertEquals(1, listOfCompanies.size());
+            assertEquals(1, listOfCompanies.size());
             assertEquals(2, listOfEmployees.size());
         } finally {
             //CleanUp
