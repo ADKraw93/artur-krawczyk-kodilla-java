@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -19,7 +21,10 @@ public class InvoiceDaoTestSuite {
     private InvoiceDao invoiceDao;
     @Autowired
     private ItemDao itemDao;
+    @Autowired
+    private ProductDao productDao;
 
+    @Transactional
     @Test
     void testInvoiceDaoSave() {
         //Given
@@ -28,13 +33,15 @@ public class InvoiceDaoTestSuite {
         Product milk = new Product("milk");
         Product apples = new Product("apples");
 
-        Item itemSugar = new Item(sugar, new BigDecimal(1.49), 3, invoice);
-        Item itemMilk = new Item(milk, new BigDecimal(1.99), 2, invoice);
-        Item itemApples = new Item(apples, new BigDecimal(3.99), 5, invoice);
+        productDao.saveAll(List.of(sugar, milk, apples));
 
-        sugar.getListOfItems().add(itemSugar);
-        milk.getListOfItems().add(itemMilk);
-        apples.getListOfItems().add(itemApples);
+        Item itemSugar = new Item(sugar, new BigDecimal("1.49"), 3, invoice);
+        Item itemMilk = new Item(milk, new BigDecimal("1.99"), 2, invoice);
+        Item itemApples = new Item(apples, new BigDecimal("3.99"), 5, invoice);
+
+        sugar.getItems().add(itemSugar);
+        milk.getItems().add(itemMilk);
+        apples.getItems().add(itemApples);
 
         invoice.getItems().add(itemSugar);
         invoice.getItems().add(itemMilk);

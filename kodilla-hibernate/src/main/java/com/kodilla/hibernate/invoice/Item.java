@@ -27,7 +27,7 @@ public class Item {
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name="ITEM_ID", unique=true)
+    @Column(name="ID", unique=true)
     public int getId() {
         return id;
     }
@@ -48,7 +48,7 @@ public class Item {
     }
 
     @NotNull
-    @Column(name = "ITEM_PRICE")
+    @Column(name = "PRICE")
     public BigDecimal getPrice() {
         return price;
     }
@@ -58,7 +58,7 @@ public class Item {
     }
 
     @NotNull
-    @Column(name = "ITEM_QUANTITY")
+    @Column(name = "QUANTITY")
     public int getQuantity() {
         return quantity;
     }

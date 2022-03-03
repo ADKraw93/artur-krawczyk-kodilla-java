@@ -12,7 +12,7 @@ import java.util.List;
 public class Product {
     private int id;
     private String name;
-    private List<Item> listOfItems = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
 
     public Product(String name) {
         this.name = name;
@@ -23,7 +23,7 @@ public class Product {
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name="PRODUCT_ID", unique=true)
+    @Column(name="ID", unique=true)
     public int getId() {
         return id;
     }
@@ -33,7 +33,7 @@ public class Product {
     }
 
     @NotNull
-    @Column(name = "PRODUCT_NAME")
+    @Column(name = "NAME")
     public String getName() {
         return name;
     }
@@ -48,11 +48,11 @@ public class Product {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    public List<Item> getListOfItems() {
-        return listOfItems;
+    public List<Item> getItems() {
+        return items;
     }
 
-    public void setListOfItems(List<Item> listOfItems) {
-        this.listOfItems = listOfItems;
+    public void setItems(List<Item> listOfItems) {
+        this.items = listOfItems;
     }
 }
