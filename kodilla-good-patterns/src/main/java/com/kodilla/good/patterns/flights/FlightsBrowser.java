@@ -1,6 +1,7 @@
 package com.kodilla.good.patterns.flights;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class FlightsBrowser {
@@ -10,45 +11,32 @@ public class FlightsBrowser {
         this.flightsList = flightsList;
     }
 
-    public void searchFrom(String airport) {
-        String result = flightsList.getListOfFlights().
+    public List<Flight> searchFrom(String airport) {
+        List<Flight> result = flightsList.getListOfFlights().
                 stream().
                 filter(f -> f.getDeparture().equals(airport)).
-                map(f -> f.toString()).
-                collect(Collectors.joining("\n"));
-        System.out.println(result);
+                collect(Collectors.toList());
+        return result;
     }
 
-    public void searchTo(String airport) {
-        String result = flightsList.getListOfFlights().
+    public List<Flight> searchTo(String airport) {
+        List<Flight> result = flightsList.getListOfFlights().
                 stream().
                 filter(f -> f.getArrival().equals(airport)).
-                map(f -> f.toString()).
-                collect(Collectors.joining("\n"));
-        System.out.println(result);
+                collect(Collectors.toList());
+        return result;
     }
 
-    public void searchVia(String airport) {
-        ArrayList<String> flightsFrom = (ArrayList<String>) flightsList.getListOfFlights().
-                stream().
-                filter(f -> f.getArrival().equals(airport)).
-                map(Flight::getDeparture).
-                collect(Collectors.toList());
+    public List<List<Flight>> searchVia(String airport) {
 
-        ArrayList<String> flightsTo = (ArrayList<String>) flightsList.getListOfFlights().
-                stream().
-                filter(f -> f.getDeparture().equals(airport)).
-                map(Flight::getArrival).
-                collect(Collectors.toList());
+        List<List<Flight>> result = new ArrayList<>();
 
-        for(String fromAirport: flightsFrom) {
-            for(String toAirport: flightsTo) {
-                if(!fromAirport.equals(toAirport)) {
-                    System.out.println("Flight from: " + fromAirport + " to: " + toAirport + " via: " + airport);
-                }
-            }
-        }
+        List<Flight> flightsTo      = searchTo(airport);
+        List<Flight> flightsFrom    = searchFrom(airport);
 
-        //System.out.println(result);
+        result.add(flightsTo);
+        result.add(flightsFrom);
+
+        return result;
     }
 }

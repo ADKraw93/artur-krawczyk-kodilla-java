@@ -7,7 +7,7 @@ import java.util.List;
 
 @NamedNativeQuery(
         name = "Company.retrieveCompanyByFirstLetters",
-        query = "SELECT * FROM COMPANIES WHERE COMPANY_NAME LIKE CONCAT(:LETTERS, '%')"
+        query = "SELECT * FROM COMPANIES WHERE COMPANY_NAME LIKE :LETTERS + '%'"
 )
 @Entity
 @Table(name = "COMPANIES")

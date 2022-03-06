@@ -1,5 +1,7 @@
 package com.kodilla.good.patterns.flights;
 
+import java.util.List;
+
 public class FlightsMain {
     public static void main(String[] args){
 
@@ -8,12 +10,15 @@ public class FlightsMain {
         FlightsBrowser flightsBrowser = new FlightsBrowser(flightsList);
 
         System.out.println("Searching from Warsaw");
-        flightsBrowser.searchFrom("Warsaw");
+        List<Flight> flightsFrom = flightsBrowser.searchFrom("Warsaw");
+        System.out.println(flightsFrom.toString());
 
         System.out.println("\nSearching to Moscov");
-        flightsBrowser.searchTo("Moscov");
+        List<Flight> flightsTo = flightsBrowser.searchTo("Moscov");
+        System.out.println(flightsTo.toString());
 
         System.out.println("\nSearching via Paris");
-        flightsBrowser.searchVia("Paris");
+        List<List<Flight>> flightsVia = flightsBrowser.searchVia("Paris");
+        System.out.println(flightsVia.toString());
     }
 }
