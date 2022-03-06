@@ -10,7 +10,7 @@ public class PaintingTask implements Task {
         this.taskName = taskName;
         this.color = color;
         this.whatToPaint = whatToPaint;
-        isDone = true;
+        isDone = false;
     }
 
     @Override
