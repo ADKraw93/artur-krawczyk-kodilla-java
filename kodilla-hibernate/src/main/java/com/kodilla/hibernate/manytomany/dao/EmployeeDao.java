@@ -7,7 +7,10 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface EmploeeDao extends CrudRepository<Employee, Integer> {
+public interface EmployeeDao extends CrudRepository<Employee, Integer> {
     @Query
     List<Employee> retrieveEmployeesByLastName(@Param("LASTNAME") String lastname);
+
+    @Query
+    List<Employee> retrieveEmployeesByTextFragment(@Param("LETTERS") String letters);
 }

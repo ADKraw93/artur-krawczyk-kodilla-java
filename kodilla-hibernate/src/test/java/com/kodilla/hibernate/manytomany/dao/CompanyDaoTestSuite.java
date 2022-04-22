@@ -17,7 +17,7 @@ class CompanyDaoTestSuite {
     private CompanyDao companyDao;
 
     @Autowired
-    private EmploeeDao emploeeDao;
+    private EmployeeDao employeeDao;
 
     @Test
     void testSaveManyToMany() {
@@ -85,7 +85,7 @@ class CompanyDaoTestSuite {
         //When
         companyDao.save(testCompany);
 
-        List<Employee> listOfEmployees = emploeeDao.retrieveEmployeesByLastName("Smith");
+        List<Employee> listOfEmployees = employeeDao.retrieveEmployeesByLastName("Smith");
         List<Company> listOfCompanies = companyDao.retrieveCompanyByFirstLetters("Tes");
 
         //Then
@@ -95,7 +95,7 @@ class CompanyDaoTestSuite {
         } finally {
             //CleanUp
             companyDao.deleteAll();
-            emploeeDao.deleteAll();
+            employeeDao.deleteAll();
         }
 
     }
