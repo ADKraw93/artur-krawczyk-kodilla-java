@@ -22,17 +22,16 @@ public class SearchCompanyFacade {
         this.companyDao = companyDao;
     }
 
-    public void retrieveCompanyByFirstLetters (final String letters) {
+    public List<Company> retrieveCompanyByFirstLetters (final String letters) {
         LOGGER.info("Starting searching a company with a name containing /'" + letters + "/'");
         List<Company> listOfCompanies = companyDao.retrieveCompanyByTextFragment(letters);
 
         if(listOfCompanies.size() == 0) {
             LOGGER.warn(SearchException.WARN_COMPANY_NOT_FOUND);
+            return new ArrayList<>();
         } else {
             LOGGER.info("There were found " + listOfCompanies.size() + " companies matching the criterion.");
-            for(Company company : listOfCompanies) {
-                System.out.println(company.getName());
-            }
+            return listOfCompanies;
         }
     }
 }

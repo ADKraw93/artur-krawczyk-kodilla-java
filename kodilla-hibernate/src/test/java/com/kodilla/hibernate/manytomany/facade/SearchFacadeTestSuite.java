@@ -4,12 +4,16 @@ import com.kodilla.hibernate.manytomany.Company;
 import com.kodilla.hibernate.manytomany.Employee;
 import com.kodilla.hibernate.manytomany.dao.CompanyDao;
 import com.kodilla.hibernate.manytomany.dao.EmployeeDao;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 public class SearchFacadeTestSuite {
@@ -28,6 +32,7 @@ public class SearchFacadeTestSuite {
 
     @Test
     void shouldFindCompaniesByTextFragment() {
+        //Given
         Employee johnSmith = new Employee("John", "Smith");
         Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
         Employee lindaKovalsky = new Employee("Linda", "Kovalsky");
@@ -52,14 +57,20 @@ public class SearchFacadeTestSuite {
         companyDao.save(dataMaesters);
         companyDao.save(greyMatter);
 
-        searchCompanyFacade.retrieveCompanyByFirstLetters("Ma");
+        //When
+        List<Company> listOfCompanies =searchCompanyFacade.retrieveCompanyByFirstLetters("Ma");
 
+        //Then
+        assertEquals(listOfCompanies.size(), 3);
+
+        //Cleanup
         companyDao.deleteAll();
         employeeDao.deleteAll();
     }
 
     @Test
     void shouldFindEmployeesByTextFragment() {
+        //Given
         Employee johnSmith = new Employee("John", "Smith");
         Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
         Employee lindaKovalsky = new Employee("Linda", "Kovalsky");
@@ -84,8 +95,13 @@ public class SearchFacadeTestSuite {
         companyDao.save(dataMaesters);
         companyDao.save(greyMatter);
 
-        searchEmployeeFacade.retrieveEmployeesByTextFragment("son");
+        //When
+        List<Employee> listOfEmployees = searchEmployeeFacade.retrieveEmployeesByTextFragment("son");
 
+        //Then
+        assertEquals(listOfEmployees.size(), 1);
+
+        //Cleanup
         companyDao.deleteAll();
         employeeDao.deleteAll();
     }

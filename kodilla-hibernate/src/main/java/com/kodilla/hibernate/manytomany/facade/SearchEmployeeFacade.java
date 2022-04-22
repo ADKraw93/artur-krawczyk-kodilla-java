@@ -22,17 +22,16 @@ public class SearchEmployeeFacade {
         this.employeeDao = employeeDao;
     }
 
-    public void retrieveEmployeesByTextFragment (final String letters) {
+    public List<Employee> retrieveEmployeesByTextFragment (final String letters) {
         LOGGER.info("Starting searching a company with a name containing /'" + letters + "/'");
         List<Employee> listOfEmployees = employeeDao.retrieveEmployeesByTextFragment(letters);
 
         if(listOfEmployees.size() == 0) {
             LOGGER.warn(SearchException.WARN_EMPLOYEE_NOT_FOUND);
+            return new ArrayList<>();
         } else {
             LOGGER.info("There were found " + listOfEmployees.size() + " companies matching the criterion.");
-            for(Employee employee : listOfEmployees) {
-                System.out.println("Employee: " + employee.getFirstname() + " " + employee.getLastname());
-            }
+            return listOfEmployees;
         }
     }
 }
