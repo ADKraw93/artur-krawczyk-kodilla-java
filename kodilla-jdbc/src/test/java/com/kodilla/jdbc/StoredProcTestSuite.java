@@ -16,16 +16,14 @@ public class StoredProcTestSuite {
         String sqlUpdate = "UPDATE READERS SET VIP_LEVEL=\"Not set\"";
         Statement statement = dbManager.getConnection().createStatement();
         statement.executeUpdate(sqlUpdate);
-        String sqlCheckTable = "SELECT COUNT(*) AS HOW_MANY FROM READERS WHERE VIP_LEVEL=\"Not set\"";
-        ResultSet rs = statement.executeQuery(sqlCheckTable);
 
         // When
         String sqlProcedureCall = "CALL UpdateVipLevels()";
-        Statement statement2 = dbManager.getConnection().createStatement();
-        statement2.execute(sqlProcedureCall);
-        rs = statement.executeQuery(sqlCheckTable);
+        statement.execute(sqlProcedureCall);
 
         // Then
+        String sqlCheckTable = "SELECT COUNT(*) AS HOW_MANY FROM READERS WHERE VIP_LEVEL=\"Not set\"";
+        ResultSet rs = statement.executeQuery(sqlCheckTable);
         int howMany = -1;
         if (rs.next()) {
             howMany = rs.getInt("HOW_MANY");
@@ -42,15 +40,15 @@ public class StoredProcTestSuite {
         String sqlUpdate = "UPDATE BOOKS SET BESTSELLER=0";
         Statement statement = dbManager.getConnection().createStatement();
         statement.executeUpdate(sqlUpdate);
-        String sqlCheckTable = "SELECT SUM(BESTSELLER) AS BS_NUMBER FROM BOOKS WHERE BESTSELLER=0";
 
         // When
         String sqlProcedureCall = "CALL UpdateBestsellers()";
-        Statement statement2 = dbManager.getConnection().createStatement();
-        statement2.execute(sqlProcedureCall);
-        ResultSet rs = statement.executeQuery(sqlCheckTable);
+        statement.execute(sqlProcedureCall);
 
         // Then
+        String sqlCheckTable = "SELECT SUM(BESTSELLER) AS BS_NUMBER FROM BOOKS WHERE BESTSELLER=0";
+        ResultSet rs = statement.executeQuery(sqlCheckTable);
+
         int howMany = -1;
         if (rs.next()) {
             howMany = rs.getInt("BS_NUMBER");
