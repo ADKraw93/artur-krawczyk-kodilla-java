@@ -21,7 +21,9 @@ public class StoredProcTestSuite {
 
         // When
         String sqlProcedureCall = "CALL UpdateVipLevels()";
-        statement.execute(sqlProcedureCall);
+        Statement statement2 = dbManager.getConnection().createStatement();
+        statement2.execute(sqlProcedureCall);
+        rs = statement.executeQuery(sqlCheckTable);
 
         // Then
         int howMany = -1;
@@ -33,4 +35,28 @@ public class StoredProcTestSuite {
         statement.close();
     }
 
+    @Test
+    public void testUpdateBestsellers() throws SQLException {
+        // Given
+        DbManager dbManager = DbManager.getInstance();
+        String sqlUpdate = "UPDATE BOOKS SET BESTSELLER=0";
+        Statement statement = dbManager.getConnection().createStatement();
+        statement.executeUpdate(sqlUpdate);
+        String sqlCheckTable = "SELECT SUM(BESTSELLER) AS BS_NUMBER FROM BOOKS WHERE BESTSELLER=0";
+
+        // When
+        String sqlProcedureCall = "CALL UpdateBestsellers()";
+        Statement statement2 = dbManager.getConnection().createStatement();
+        statement2.execute(sqlProcedureCall);
+        ResultSet rs = statement.executeQuery(sqlCheckTable);
+
+        // Then
+        int howMany = -1;
+        if (rs.next()) {
+            howMany = rs.getInt("BS_NUMBER");
+        }
+        assertEquals(0, howMany);
+        rs.close();
+        statement.close();
+    }
 }
